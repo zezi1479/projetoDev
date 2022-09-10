@@ -19,11 +19,17 @@ function SalesCard() {
     const [sale, setSales] = useState<Sale[]>([]);
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/sales`)
+
+        const dmin = minDate.toISOString().slice(0, 10);
+        const dmax = maxdate.toISOString().slice(0, 10);
+
+        console.log(dmin)
+
+        axios.get(`${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`)
             .then(response => {
                 setSales(response.data.content);
             })
-    }, []);
+    }, [minDate, maxdate]);
 
 
     return (
